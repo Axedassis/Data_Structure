@@ -18,52 +18,70 @@
 #include <stdlib.h>
 #include <limits.h>
 
-typedef struct Stack
+typedef struct StackNode
 {
-	int value, data;
-	struct Stack *next;
-} Stack;
+	int data;
+	struct StackNode *next;
+} StackNode;
 
-
-Stack *create_stack(int data)
+StackNode* newNode(int data)
 {
-	if(data != NULL)
+	StackNode* node = (StackNode *)malloc(sizeof(StackNode));
+	if(node == NULL)
 	{
-		Stack *stack = (Stack *)malloc(sizeof(Stack));
-		if(stack == NULL)
-		{
-			printf("Unable t allocate memory");
-			return;
-		}
-		stack->data = data;
-		stack->next = NULL;
-		return(stack);
+		printf("Unable to allocate memory");
+		exit (EXIT_FAILURE);
 	}
-	printf("Invalid capacity rande");
-	exit(EXIT_FAILURE);
+	node->next = NULL;
+	node->data = data;
+	
+	return (node);
 }
 
-int isEmpty(Stack *root)
+int isEmpty(StackNode *root)
 {
 	return !root;
 }
 
-void push(Stack *root, int value)
+void push(StackNode **root, int data)
 {
-	Stack *node = create_stack(value);
-	node->next = root->next;
-	root = node;
-	printf("Pushed %d into stack\n", value);
+	StackNode* push_node = newNode(data);
+	push_node->next = *root;
+	*root = push_node;
+	printf("push %d into stack\n", data);
 }
 
-int pop(Stack *root)
+int pop(StackNode **root)
+{
+	if(isEmpty(*root))
+		return INT_MIN;
+	StackNode* tmp = *root;
+	int poppedVal = tmp->data;
+	*root = (*root)->next;
+	free(tmp);
+	printf("popped %d of stack\n", poppedVal);
+	return (poppedVal);
+}
+
+int peek(StackNode* root)
 {
 	if(isEmpty(root))
 		return INT_MIN;
+	return root->data;
 }
 
-int main(int argc, char const *argv[])
+int main(void)
 {
-	/* code */
+	StackNode *list = NULL;
+	push(&list, 67);
+	push(&list, 22);
+	push(&list, 7);
+	push(&list, 25);
+	printf("Peek: %d\n", peek(list));
+	pop(&list);
+	printf("Peek: %d\n", peek(list));
+	pop(&list);
+	printf("Peek: %d\n", peek(list));
 	return 0;
 }
+
