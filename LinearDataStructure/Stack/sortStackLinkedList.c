@@ -58,9 +58,28 @@ void push(NodeStack **root, int data)
 	*root = node;
 }
 
+int pop(NodeStack **root)
+{
+	if(isEmpty(root))
+		return INT_MIN;
+	NodeStack *tmp = *root;
+	int poppedVal = tmp->data;
+	*root = (*root)->next;
+	free(tmp);
+
+	return(poppedVal);
+}
 void sortLinkedListStack(NodeStack* root)
 {
 	if(!root)
 		return INT_MIN;
-	
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while(root->next != NULL)
+	{
+		
+	}
 }
