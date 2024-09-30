@@ -38,7 +38,7 @@ void enqueue(Queue *queue, int item)
 	/*
 	capity = 5
 	size = 4
-	arrear = 4
+	rear = 4
 	append more 1 element to queue 
 	(4 + 1) % 5 = 0. the rear backs to the initial position
 

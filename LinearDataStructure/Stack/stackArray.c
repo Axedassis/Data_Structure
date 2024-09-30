@@ -60,8 +60,8 @@ void push(Stack *stack, int value)
 		printf("Full Stack");
 		return;
 	}
-	stack->array[++stack->top] = value;
 	stack->top = stack->top + 1;
+	stack->array[stack->top] = value;
 	printf("%d pushed to stack\n", value);
 }
 
